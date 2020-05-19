@@ -1,1 +1,1 @@
-# cholesky_tupy
+# Código da Fatoração de Choleksy implementado em TuPy.
