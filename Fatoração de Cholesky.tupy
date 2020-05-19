@@ -1,0 +1,60 @@
+~~~
+inteiro oculto M[*,*] <- []
+real oculto G[*,*] <- []
+real oculto N, soma, r 
+inteiro oculto i, j, k
+
+N <- 3 
+
+#PREPARACAO DA MATRIZ 
+para i <- 1 até N inclusive:
+    inteiro L[N] 
+    M <- M + [L] 
+#FIM DA PREPARACAO 
+
+#PREPARACAO DA MATRIZ 
+para i <- 1 até N inclusive:
+    real L[N] 
+    G <- G + [L] 
+#FIM DA PREPARACAO 
+
+visual O <- matriz(M)           #MATRIZ ORIGINAL
+visual C <- matriz(G)           #MATRIZ FATOR DE CHOLESKY
+~~~
+
+
+lógico Cholesky(inteiro oculto N):
+    para i <- 0 até N:
+        para j <- 0 até N:
+            ler(M[i][j])
+            O <- matriz(M) ~~
+    inteiro oculto cont <- 0
+    para i <- 0 até N:
+        para j <- 0 até N:
+            O <- matriz(M, [[i,j], [j,i]]) ~~
+            se M[i][j]!=M[j][i]:
+                cont <- cont + 1
+    se cont=0:
+        para k <- 0 até N:
+            soma <- 0
+            para i <- 0 até k-1 inclusive:
+                soma <- soma+((G[k][i])*(G[k][i])) 
+            r <- M[k][k] - soma
+            se r <= 0.0:
+                retornar falso
+            G[k][k] <- r^(1/2)
+            C <- matriz(G) ~~
+            para i <- k+1 até N:
+                soma <- 0 
+                para j <- 0 até k-1 inclusive:
+                    soma <- soma + (G[i][j])*(G[k][j])
+                G[i][k] <- (M[i][k] - soma)/G[k][k]
+                C <- matriz(G) ~~
+        retornar verdadeiro 
+    senão:
+        retornar falso
+
+
+
+Cholesky(3)  #EXEMPLO DE ENTRADA: 4 2 -4 2 10 4 -4 4 9
+             #SOLUÇÃO ESPERADA: 2 0 0 1 3 0 -2 2 1
